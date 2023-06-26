@@ -341,8 +341,8 @@ def prepare_payne_model(model,labels,spec,rv=None,vmacro=None,vsini=None,wave=No
         nbin = np.round(np.min(fwhmpix)//4).astype(int)
         if np.min(fwhmpix) < 3.7:
             warnings.warn('Model has lower resolution than the observed spectrum. Only '+str(np.min(fwhmpix))+' model pixels per resolution element') 
-        if np.min(fwhmpix) < 2.8:
-            raise Exception('Model has lower resolution than the observed spectrum. Only '+str(np.min(fwhmpix))+' model pixels per resolution element')
+        # if np.min(fwhmpix) < 2.8:
+        #     raise Exception('Model has lower resolution than the observed spectrum. Only '+str(np.min(fwhmpix))+' model pixels per resolution element')
 
         if nbin>1:
             npix2 = np.round(len(tmodelflux) // nbin).astype(int)

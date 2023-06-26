@@ -17,7 +17,7 @@ from scipy import special
 import astropy.units as u
 from astropy.time import Time
 from astropy.coordinates import SkyCoord, EarthLocation
-import thecannon as tc
+#import thecannon as tc
 from dlnpyutils import utils as dln, bindata
 import copy
 from . import utils
@@ -750,7 +750,7 @@ class Lsf:
     """
     
     # Initalize the object
-    def __init__(self,wave=None,pars=None,xtype='wave',lsftype='Gaussian',sigma=None,verbose=False):
+    def __init__(self,wave=None,pars=None,xtype='wave',lsftype='Gaussian',sigma=None,verbose=True):
         """ Initialize Lsf object. """
         # xtype is wave or pixels.  designates what units to use BOTH for the input
         #   arrays to use with PARS and the output units
@@ -788,9 +788,9 @@ class Lsf:
         # Make sure sigma is 2D
         if sigma is not None:
             if sigma.ndim==1:
-                self.sigma = np.atleast_2d(sigma).T  # 2D with order dimension at 2nd
+                self._sigma = sigma#np.atleast_2d(sigma).T  # 2D with order dimension at 2nd
             else:
-                self.sigma = sigma
+                self._sigma = sigma
         else:
             self._sigma = sigma
         self._array = None
@@ -826,7 +826,7 @@ class Lsf:
         else:
             sigma = None
         olsf = Lsf(wave=wave,pars=pars,xtype=self.xtype,lsftype=self.lsftype,
-                   sigma=sigma)
+                   sigma=self._sigma)
         return olsf
     
     def wave2pix(self,w,extrapolate=True,order=0):
